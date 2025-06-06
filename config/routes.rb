@@ -9,6 +9,17 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Root route
+  root "locations#index"
+
+  # Location resources
+  resources :locations
+
+  # API routes for dependent dropdowns
+  namespace :api do
+    get "location_data/provinces"
+    get "location_data/cities"
+    get "provinces/:country_id", to: "location_data#provinces"
+    get "cities/:province_id", to: "location_data#cities"
+  end
 end
